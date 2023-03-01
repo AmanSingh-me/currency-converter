@@ -1,0 +1,48 @@
+main {
+  background-color: #00000040;
+  padding: 15px;
+  border-radius: 10px;
+  outline: 1px solid #ffffff50;
+}
+
+h1 {
+  text-align: center;
+  color: #00ffff;
+  margin-bottom: 2em;
+}
+
+main div {
+  border: 1px solid #ffffff50;
+  border-radius: 8px;
+  background: #0000005e;
+  display: flex;
+  margin: 25px 0;
+  padding: 8px;
+}
+
+main div:hover {
+  border-color:#55ec30
+}
+
+hr {
+  margin: 3px 10px;
+  border-color: #ffffff50;
+}
+
+select{
+  font-size: 1.3rem;
+  background: #0000004e;
+  color: #fff;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+}
+
+select:hover{
+  outline: 1px solid #fff;
+}
+
+select:focus{
+  outline: 1px solid #55ec30;
+  color: #55ec30;
+}

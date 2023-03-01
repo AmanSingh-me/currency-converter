@@ -1,0 +1,14 @@
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: url(./assets/images/currency.jpeg) center no-repeat;
+  background-size: cover;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
