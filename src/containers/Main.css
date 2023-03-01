@@ -9,6 +9,7 @@ h1 {
   text-align: center;
   color: #00ffff;
   margin-bottom: 2em;
+  font-size: 36px;
 }
 
 main div {
@@ -45,4 +46,8 @@ select:hover{
 select:focus{
   outline: 1px solid #55ec30;
   color: #55ec30;
+}
+
+option{
+  color: #000;
 }

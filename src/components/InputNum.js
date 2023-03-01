@@ -1,11 +1,11 @@
 
 import "./InputNum.css"
 
-function InputNum() {
+function InputNum({input, setInput}) {
 
   return (
-    <input type="number" name="currencyAmount" aria-label="Currency-Amount"
-     placeholder="....." />
+    <input type="number" name="currencyAmount" aria-label="Currency-Amount" value={input}
+    onChange={(e) => setInput(e.target.value)} placeholder="....." />
   )
 }
 
