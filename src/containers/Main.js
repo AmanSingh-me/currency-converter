@@ -3,7 +3,7 @@ import "./Main.css";
 import InputNum from "../components/InputNum";
 import Selection from "../components/Selection";
 import { useEffect, useState } from "react";
-import { fetchData } from "../utils/functions";
+import { exchangeAmount, fetchData } from "../utils/functions";
 import { createDynamic_ExchangeRateApi, getCurrencyList, locationBasedCurrency } from "../services/Api";
 
  
@@ -20,7 +20,7 @@ export default function Main() {
   const [toCurrency, setToCurrency] = useState("USD");
 
 
-  // exchange rates for c
+  // exchange rates of both currency
   const [from_ExchangeRate, setFromExchangeRate] = useState("");
   const [to_ExchangeRate, setToExchangeRate] = useState("");
 
@@ -39,6 +39,7 @@ export default function Main() {
     
   }, [])
 
+  // getting exchangeRates when currency changes
   useEffect(() => {
 
     if(fromCurrency && toCurrency){
@@ -52,19 +53,38 @@ export default function Main() {
   }, [ fromCurrency, toCurrency ])
 
 
+  // updating toCurrencyAmount whenever exchangeRate changes
+  useEffect(() => {
+    setToCurrencyAmount(exchangeAmount(fromCurrencyAmount, from_ExchangeRate))
+  }, [ from_ExchangeRate, to_ExchangeRate ])
+
+
+  // handling input on change event
+  const from_ChangeHandler = (e) => {
+    setFromCurrencyAmount(e.target.value);
+    setToCurrencyAmount(exchangeAmount(e.target.value, from_ExchangeRate))
+  }
+
+  const to_ChangeHandler = (e) => {
+    setToCurrencyAmount(e.target.value)
+     setFromCurrencyAmount(exchangeAmount(e.target.value, to_ExchangeRate))
+  }
+
+
+
   return (
     <main>
       <h1>Currency Converter</h1>
 
       <div>
-        <InputNum inputValue={fromCurrencyAmount} setInput={setFromCurrencyAmount} />
+        <InputNum inputValue={fromCurrencyAmount} changeHandler={from_ChangeHandler} />
         <hr />
         <Selection allCurrencies={currencyList} defaultSelected={fromCurrency} 
         setCurrency={setFromCurrency} />
       </div>
 
       <div>
-        <InputNum inputValue={toCurrencyAmount} setInput={setToCurrencyAmount} />
+        <InputNum inputValue={toCurrencyAmount} changeHandler={to_ChangeHandler} />
         <hr />
         <Selection allCurrencies={currencyList} defaultSelected={toCurrency}
          setCurrency={setToCurrency} />
