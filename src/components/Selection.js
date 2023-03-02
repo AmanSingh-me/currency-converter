@@ -1,11 +1,11 @@
 
 
 
-export default function Selection({ allCurrencies, defaultSelected }) {
-
+export default function Selection({ allCurrencies, defaultSelected, setCurrency }) {
   
   return (
-    <select aria-label="Currency Type" name="currencyType" >
+    <select aria-label="Currency Type" name="currencyType" value={defaultSelected}
+     onChange={(e) => { setCurrency(e.target.value) }} >
 
       {
         allCurrencies !== undefined &&

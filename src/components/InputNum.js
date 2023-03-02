@@ -1,10 +1,10 @@
 
 import "./InputNum.css"
 
-function InputNum({input, setInput}) {
+function InputNum({inputValue, setInput}) {
 
   return (
-    <input type="number" name="currencyAmount" aria-label="Currency-Amount" value={input}
+    <input type="number" name="currencyAmount" aria-label="Currency-Amount" value={inputValue}
     onChange={(e) => setInput(e.target.value)} placeholder="....." />
   )
 }

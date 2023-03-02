@@ -4,24 +4,52 @@ import InputNum from "../components/InputNum";
 import Selection from "../components/Selection";
 import { useEffect, useState } from "react";
 import { fetchData } from "../utils/functions";
-import { getCurrencyList, locationBasedCurrency } from "../services/Api";
+import { createDynamic_ExchangeRateApi, getCurrencyList, locationBasedCurrency } from "../services/Api";
 
  
 
 
 export default function Main() {
 
-  const [fromCurrency, setFromCurrency] = useState(1);
-  const [toCurrency, setToCurrency] = useState("");
+  // for input tag
+  const [fromCurrencyAmount, setFromCurrencyAmount] = useState(1);
+  const [toCurrencyAmount, setToCurrencyAmount] = useState("");
 
-  const [from_ExchangeRate, setFromExchangeCurrency] = useState("");
-  const [to_ExchangeRate, setToExchangeCurrency] = useState("");
+  // for select tag
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("USD");
+
+
+  // exchange rates for c
+  const [from_ExchangeRate, setFromExchangeRate] = useState("");
+  const [to_ExchangeRate, setToExchangeRate] = useState("");
 
   const [currencyList, setCurrencyList] = useState();
 
+  // getting all symbols initially
   useEffect(() => {
-    fetchData(getCurrencyList).then(value => { setCurrencyList(value.symbols) })
+
+    fetchData(locationBasedCurrency, "text")
+    .then(value => { setFromCurrency(value) })
+    .then(() => {
+      fetchData(getCurrencyList, "json").then(value => { setCurrencyList(value.symbols) })
+    }).catch(error => {
+      console.log(error)
+    })
+    
   }, [])
+
+  useEffect(() => {
+
+    if(fromCurrency && toCurrency){
+    fetchData(createDynamic_ExchangeRateApi(fromCurrency, toCurrency), "json")
+    .then(data => setFromExchangeRate(data.info.rate));
+
+    fetchData(createDynamic_ExchangeRateApi(toCurrency, fromCurrency), "json")
+    .then(data => setToExchangeRate(data.info.rate));
+    }
+
+  }, [ fromCurrency, toCurrency ])
 
 
   return (
@@ -29,15 +57,17 @@ export default function Main() {
       <h1>Currency Converter</h1>
 
       <div>
-        <InputNum input={fromCurrency} setInput={setFromCurrency} />
+        <InputNum inputValue={fromCurrencyAmount} setInput={setFromCurrencyAmount} />
         <hr />
-        <Selection allCurrencies={currencyList} defaultSelected={fromCurrency} />
+        <Selection allCurrencies={currencyList} defaultSelected={fromCurrency} 
+        setCurrency={setFromCurrency} />
       </div>
 
       <div>
-        <InputNum input={toCurrency} setInput={setToCurrency} />
+        <InputNum inputValue={toCurrencyAmount} setInput={setToCurrencyAmount} />
         <hr />
-        <Selection allCurrencies={currencyList} defaultSelected={toCurrency} />
+        <Selection allCurrencies={currencyList} defaultSelected={toCurrency}
+         setCurrency={setToCurrency} />
       </div>
 
     </main>
