@@ -1,4 +1,5 @@
 
+import "./Selection.css"
 
 
 export default function Selection({ allCurrencies, defaultSelected, setCurrency }) {
@@ -10,8 +11,8 @@ export default function Selection({ allCurrencies, defaultSelected, setCurrency 
       {
         allCurrencies !== undefined &&
         Object.entries(allCurrencies).map(value => (
-          <option key={value[1].description} title={value[1].description} 
-            value={value[0]}> {value[1].code} 
+          <option key={value[1].description} title={value[1].code} 
+            value={value[0]}> {value[1].description} 
           </option>
           
         ))

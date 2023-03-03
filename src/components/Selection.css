@@ -1,0 +1,30 @@
+select {
+  font-size: 1.3rem;
+  background: #0000004e;
+  color: #fff;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  width: 100%;
+}
+
+select:hover {
+  outline: 1px solid #fff;
+}
+
+select:focus {
+  outline: 1px solid #55ec30;
+  color: #55ec30;
+  font-size: 1rem;
+}
+
+option {
+  color: #000;
+}
+
+@media screen and (max-width: 480px ) {
+    select{
+        font-size: 1.2rem;
+    }
+}
+

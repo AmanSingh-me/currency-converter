@@ -5,6 +5,7 @@ import Selection from "../components/Selection";
 import { useEffect, useState } from "react";
 import { exchangeAmount, fetchData } from "../utils/functions";
 import { createDynamic_ExchangeRateApi, getCurrencyList, locationBasedCurrency } from "../services/Api";
+import ExchangeInfo from "../components/ExchangeInfo";
 
  
 
@@ -64,7 +65,6 @@ export default function Main() {
     setFromCurrencyAmount(e.target.value);
     setToCurrencyAmount(exchangeAmount(e.target.value, from_ExchangeRate))
   }
-
   const to_ChangeHandler = (e) => {
     setToCurrencyAmount(e.target.value)
      setFromCurrencyAmount(exchangeAmount(e.target.value, to_ExchangeRate))
@@ -75,7 +75,7 @@ export default function Main() {
   return (
     <main>
       <h1>Currency Converter</h1>
-
+      <ExchangeInfo   />
       <div>
         <InputNum inputValue={fromCurrencyAmount} changeHandler={from_ChangeHandler} />
         <hr />
