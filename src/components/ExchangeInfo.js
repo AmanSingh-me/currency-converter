@@ -1,15 +1,22 @@
 
 
-export default function ExchangeInfo({fromCurrencyAmount, fromCurrency, toCurrency, toCurrencyAmount }){
-    
+export default function ExchangeInfo({fromCurrencyAmount=0, fromCurrency, toCurrencyAmount=0, toCurrency }){
+  
+  if(fromCurrencyAmount <= 0 || toCurrencyAmount <= 0 ){
+    fromCurrencyAmount = 0;
+    toCurrencyAmount = 0
+  }
+  
   return (
-    <p style={{marginBottom: "2rem", fontSize: "1.2rem"}} > 
+    <>
+      <p style={{fontSize: "1.2rem"}} > 
         {`${fromCurrencyAmount} ${fromCurrency} equals`} 
-        <br></br>
+        
+      </p>
 
-        <span style={{ marginTop: "2rem", fontSize: "2rem"}} >
-          {`${toCurrency} ${toCurrencyAmount}`}
-        </span>
-    </p>
+      <p style={{marginTop: "0rem", fontSize: "1.8rem"}} >
+          {`${toCurrencyAmount} ${toCurrency}`}
+      </p>
+    </>
   )
 }

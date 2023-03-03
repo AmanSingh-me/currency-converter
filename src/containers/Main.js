@@ -75,7 +75,8 @@ export default function Main() {
   return (
     <main>
       <h1>Currency Converter</h1>
-      <ExchangeInfo   />
+      <ExchangeInfo fromCurrency={fromCurrency} fromCurrencyAmount={fromCurrencyAmount} 
+        toCurrencyAmount={toCurrencyAmount} toCurrency={toCurrency} />
       <div>
         <InputNum inputValue={fromCurrencyAmount} changeHandler={from_ChangeHandler} />
         <hr />
