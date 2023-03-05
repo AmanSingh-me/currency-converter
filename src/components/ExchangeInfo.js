@@ -1,6 +1,6 @@
 
 
-export default function ExchangeInfo({fromCurrencyAmount=0, fromCurrency, toCurrencyAmount=0, toCurrency }){
+export default function ExchangeInfo({fromCurrencyAmount=0, fromCurrency="", toCurrencyAmount=0, toCurrency="" }){
   
   if(fromCurrencyAmount <= 0 || toCurrencyAmount <= 0 ){
     fromCurrencyAmount = 0;
