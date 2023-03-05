@@ -1,5 +1,9 @@
 # Getting Started with Currency Converter
 
+### Screenshot
+
+![image](https://user-images.githubusercontent.com/110448845/222965563-ecb7a70d-d4e6-41bd-90e5-5271d53cf6e8.png)
+
 
 
 In the project directory, you can run:
