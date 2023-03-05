@@ -1,31 +1,21 @@
 
 import "./Main.css";
+import { GlobalContext } from "../context/Context";
 import InputNum from "../components/InputNum";
 import Selection from "../components/Selection";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { exchangeAmount, fetchData } from "../utils/functions";
 import { createDynamic_ExchangeRateApi, getCurrencyList, locationBasedCurrency } from "../services/Api";
 import ExchangeInfo from "../components/ExchangeInfo";
+
 
  
 
 
 export default function Main() {
 
-  // for input tag
-  const [fromCurrencyAmount, setFromCurrencyAmount] = useState(1);
-  const [toCurrencyAmount, setToCurrencyAmount] = useState("");
+ const { fromCurrencyAmount, toCurrencyAmount, setFromCurrencyAmount, setToCurrencyAmount, fromCurrency, toCurrency, setFromCurrency, setToCurrency, from_ExchangeRate, to_ExchangeRate, setFromExchangeRate, setToExchangeRate, currencyList, setCurrencyList } = useContext(GlobalContext);
 
-  // for select tag
-  const [fromCurrency, setFromCurrency] = useState("");
-  const [toCurrency, setToCurrency] = useState("USD");
-
-
-  // exchange rates of both currency
-  const [from_ExchangeRate, setFromExchangeRate] = useState("");
-  const [to_ExchangeRate, setToExchangeRate] = useState("");
-
-  const [currencyList, setCurrencyList] = useState();
 
   // getting all symbols initially
   useEffect(() => {
@@ -35,20 +25,23 @@ export default function Main() {
     .then(() => {
       fetchData(getCurrencyList, "json").then(value => { setCurrencyList(value.symbols) })
     }).catch(error => {
-      console.log(error)
+      console.error(error)
     })
     
   }, [])
+
 
   // getting exchangeRates when currency changes
   useEffect(() => {
 
     if(fromCurrency && toCurrency){
     fetchData(createDynamic_ExchangeRateApi(fromCurrency, toCurrency), "json")
-    .then(data => setFromExchangeRate(data.info.rate));
+    .then(data => setFromExchangeRate(data.info.rate))
+    .catch(error => { console.error(error) })
 
     fetchData(createDynamic_ExchangeRateApi(toCurrency, fromCurrency), "json")
-    .then(data => setToExchangeRate(data.info.rate));
+    .then(data => setToExchangeRate(data.info.rate))
+    .catch(error => { console.error(error) })
     }
 
   }, [ fromCurrency, toCurrency ])
